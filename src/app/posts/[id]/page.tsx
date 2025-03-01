@@ -138,7 +138,7 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
                   }}
                 />
                 <img
-                  src={`/api/image-proxy?url=${encodeURIComponent(post.image_url)}`}
+                  src={post.image_url}
                   alt={post.title}
                   className="w-full h-full object-cover"
                 />
@@ -151,7 +151,7 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
               <div className="relative h-10 w-10 rounded-full overflow-hidden bg-muted">
                 {author.avatar_url ? (
                   <img
-                    src={`/api/image-proxy?url=${encodeURIComponent(author.avatar_url)}`}
+                    src={author.avatar_url}
                     alt={author.username}
                     className="w-full h-full object-cover"
                   />
