@@ -76,13 +76,13 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
     try {
       // シェアURLの作成
       const shareUrl = `${window.location.origin}/posts/${id}`;
-      const shareText = `${post.title} | 推しTag`;
+      const shareText = `私の推しを布教します！\n#推しタグ\n${shareUrl}`;
       
       // Web Share APIが利用可能な場合はそれを使用
       if (navigator.share) {
         navigator.share({
-          title: shareText,
-          text: post.content?.substring(0, 100) + (post.content && post.content.length > 100 ? '...' : ''),
+          title: post.title,
+          text: shareText,
           url: shareUrl
         })
         .then(() => {
@@ -108,15 +108,19 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
     
     // フォールバックの共有方法
     function fallbackShare() {
+      if (!post) return;
+      
       const shareUrl = `${window.location.origin}/posts/${id}`;
-      // クリップボードにURLをコピー
-      navigator.clipboard.writeText(shareUrl).then(() => {
-        success("URLをコピーしました", {
-          description: "URLがクリップボードにコピーされました。お好みのSNSで共有できます。"
+      const shareText = `私の推しを布教します！\n#推しタグ\n${shareUrl}`;
+      
+      // クリップボードにテキストとURLをコピー
+      navigator.clipboard.writeText(shareText).then(() => {
+        success("テキストをコピーしました", {
+          description: "共有テキストがクリップボードにコピーされました。お好みのSNSで貼り付けて共有できます。"
         });
       }).catch(() => {
         toastError("コピー失敗", {
-          description: "URLのコピーに失敗しました"
+          description: "テキストのコピーに失敗しました"
         });
       });
     }
