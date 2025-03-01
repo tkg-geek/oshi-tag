@@ -136,21 +136,12 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
                 __html: `console.log("画像URL:", ${JSON.stringify(post.image_url)})`,
               }}
             />
-            {/* Next.jsのImageコンポーネントが問題を起こしている可能性があるため、通常のimgタグも試す */}
-            {process.env.NODE_ENV === "production" ? (
-              <img
-                src={post.image_url}
-                alt={post.title}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <Image
-                src={post.image_url}
-                alt={post.title}
-                fill
-                className="object-cover"
-              />
-            )}
+            {/* プロキシAPIを通して画像を表示 */}
+            <img
+              src={`/api/image-proxy?url=${encodeURIComponent(post.image_url)}`}
+              alt={post.title}
+              className="w-full h-full object-cover"
+            />
           </div>
         )}
 
@@ -158,11 +149,10 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
           <div className="flex items-center gap-3 mb-4">
             <div className="relative h-10 w-10 rounded-full overflow-hidden bg-muted">
               {author.avatar_url ? (
-                <Image
-                  src={author.avatar_url}
+                <img
+                  src={`/api/image-proxy?url=${encodeURIComponent(author.avatar_url)}`}
                   alt={author.username}
-                  fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
                 />
               ) : (
                 <div className="h-full w-full flex items-center justify-center bg-primary/10 text-primary font-medium">
