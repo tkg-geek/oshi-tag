@@ -13,6 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Post } from "@/types"
 import { ArrowLeft, Heart, MessageSquare, Share2 } from "lucide-react"
 import React from "react"
+import { createClient } from '@supabase/supabase-js'
 
 export default function PostDetailPage({ params }: { params: { id: string } }) {
   // React.use()でparamsをアンラップ
@@ -31,8 +32,13 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
         console.log("投稿ID:", id)
         console.log("現在のユーザー:", user?.id)
 
+        // 匿名ユーザー用のSupabaseクライアントを作成
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+        const anonSupabase = createClient(supabaseUrl, supabaseAnonKey);
+
         // 投稿データを取得
-        const { data: postData, error: postError } = await supabase
+        const { data: postData, error: postError } = await anonSupabase
           .from("posts")
           .select("*")
           .eq("id", id)
@@ -64,7 +70,7 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
         setPost(postData)
 
         // 投稿者の情報を取得
-        const { data: userData, error: userError } = await supabase
+        const { data: userData, error: userError } = await anonSupabase
           .from("profiles")
           .select("username, avatar_url")
           .eq("id", postData.user_id)
