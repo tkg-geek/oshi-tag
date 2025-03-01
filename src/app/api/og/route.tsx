@@ -20,8 +20,9 @@ export async function GET(request: NextRequest) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: 'white',
-            backgroundImage: 'linear-gradient(to right, #ec4899, #9333ea)',
+            background: 'linear-gradient(to right, #ec4899, #9333ea)',
+            color: 'white',
+            padding: '40px',
           }}
         >
           <div
@@ -30,13 +31,11 @@ export async function GET(request: NextRequest) {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: 'white',
+              background: 'rgba(255, 255, 255, 0.9)',
               borderRadius: '24px',
-              padding: '40px 60px',
-              margin: '40px',
-              boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)',
-              width: '80%',
-              height: '70%',
+              padding: '40px',
+              width: '90%',
+              boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
             }}
           >
             <div
@@ -48,38 +47,9 @@ export async function GET(request: NextRequest) {
             >
               <div
                 style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  backgroundImage: 'linear-gradient(to right, #ec4899, #9333ea)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginRight: '16px',
-                }}
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-                  <path d="M19 17.7c.4.2.8.3 1.2.3a3 3 0 0 0-3-3c-.4 0-.8.1-1.2.3" />
-                  <path d="M12 19a9 9 0 0 0 9-9 6 6 0 0 1-9-9 9 9 0 0 0-9 9 9 9 0 0 0 9 9Z" />
-                </svg>
-              </div>
-              <div
-                style={{
-                  backgroundImage: 'linear-gradient(to right, #ec4899, #9333ea)',
-                  backgroundClip: 'text',
-                  color: 'transparent',
                   fontSize: '36px',
                   fontWeight: 'bold',
+                  color: '#9333ea',
                 }}
               >
                 推しTag
@@ -91,12 +61,6 @@ export async function GET(request: NextRequest) {
                 fontWeight: 'bold',
                 textAlign: 'center',
                 color: '#333',
-                maxWidth: '90%',
-                wordBreak: 'break-word',
-                display: '-webkit-box',
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
                 marginBottom: '20px',
               }}
             >

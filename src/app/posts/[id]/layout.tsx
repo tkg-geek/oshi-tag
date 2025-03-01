@@ -24,7 +24,12 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
       : '推し活を記録・共有・印刷できるサービス'
 
     // OGP画像のURLを生成
-    const ogImageUrl = new URL(`/api/og?title=${encodeURIComponent(post.title)}`, process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000').toString()
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    // URLが既に https:// で始まっているか確認
+    const baseUrlWithProtocol = baseUrl.startsWith('http') ? baseUrl : `https://${baseUrl}`;
+    const ogImageUrl = `${baseUrlWithProtocol}/api/og?title=${encodeURIComponent(post.title)}`;
+    
+    console.log('生成されたOGP画像URL:', ogImageUrl);
 
     return {
       title: `${post.title} | 推しTag`,
