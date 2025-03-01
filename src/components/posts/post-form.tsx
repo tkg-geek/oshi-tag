@@ -33,7 +33,6 @@ export function PostForm({
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string | null>(initialData?.image_url || null)
   const [visibility, setVisibility] = useState<VisibilityType>(initialData?.visibility || "private")
-  const [password, setPassword] = useState(initialData?.password || "")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -98,8 +97,6 @@ export function PostForm({
         visibility,
         user_id: user.id,
         updated_at: new Date().toISOString(),
-        // 限定公開の場合でもパスワードフィールドは使用しない
-        // ...(visibility === "limited" && { password }),
       }
 
       // 外部のonSubmit関数が提供されている場合はそれを使用
@@ -208,7 +205,7 @@ export function PostForm({
                 <RadioGroupItem value="limited" id="limited" />
                 <Label htmlFor="limited" className="flex items-center gap-2 cursor-pointer">
                   <Lock className="h-4 w-4" />
-                  限定公開（URLとパスワード保護）
+                  限定公開（URLを知っている人のみ）
                 </Label>
               </div>
             </RadioGroup>
@@ -216,17 +213,8 @@ export function PostForm({
 
           {visibility === "limited" && (
             <div className="space-y-2">
-              <Label htmlFor="password">パスワード</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="閲覧用パスワードを設定"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
               <p className="text-xs text-muted-foreground mt-1">
-                注意: 現在、パスワード保護機能は実装中です。限定公開の投稿はURLを知っている人のみが閲覧できます。
+                限定公開の投稿はURLを知っている人のみが閲覧できます。URLを共有したい人にだけ教えてください。
               </p>
             </div>
           )}

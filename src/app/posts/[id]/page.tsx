@@ -11,7 +11,7 @@ import { useAuth } from "@/hooks/use-auth"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Post } from "@/types"
-import { ArrowLeft, Heart, MessageSquare, Share2, Wifi } from "lucide-react"
+import { ArrowLeft, Heart, MessageSquare, Share2, Wifi, Printer, Share } from "lucide-react"
 import React from "react"
 import { createClient } from '@supabase/supabase-js'
 import { toast, success, error as toastError } from "@/components/ui/toast"
@@ -66,6 +66,80 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
       });
     } finally {
       setIsNfcWriting(false);
+    }
+  };
+
+  // SNSで布教する関数
+  const shareToSns = () => {
+    if (!post) return;
+    
+    try {
+      // シェアURLの作成
+      const shareUrl = `${window.location.origin}/posts/${id}`;
+      const shareText = `${post.title} | 推しTag`;
+      
+      // Web Share APIが利用可能な場合はそれを使用
+      if (navigator.share) {
+        navigator.share({
+          title: shareText,
+          text: post.content?.substring(0, 100) + (post.content && post.content.length > 100 ? '...' : ''),
+          url: shareUrl
+        })
+        .then(() => {
+          success("共有成功", {
+            description: "コンテンツの共有が完了しました"
+          });
+        })
+        .catch((err) => {
+          console.error("共有エラー:", err);
+          // エラーが発生した場合はフォールバック
+          fallbackShare();
+        });
+      } else {
+        // Web Share APIが利用できない場合はフォールバック
+        fallbackShare();
+      }
+    } catch (err) {
+      console.error("共有処理エラー:", err);
+      toastError("共有失敗", {
+        description: "コンテンツの共有中にエラーが発生しました"
+      });
+    }
+    
+    // フォールバックの共有方法
+    function fallbackShare() {
+      const shareUrl = `${window.location.origin}/posts/${id}`;
+      // クリップボードにURLをコピー
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        success("URLをコピーしました", {
+          description: "URLがクリップボードにコピーされました。お好みのSNSで共有できます。"
+        });
+      }).catch(() => {
+        toastError("コピー失敗", {
+          description: "URLのコピーに失敗しました"
+        });
+      });
+    }
+  };
+
+  // 印刷する関数
+  const printPost = () => {
+    if (!post) return;
+    
+    try {
+      toast("印刷準備中...", "info", {
+        description: "印刷用データを準備しています"
+      });
+      
+      // 印刷機能は今後実装予定
+      success("印刷準備完了", {
+        description: "印刷機能は近日実装予定です"
+      });
+    } catch (err) {
+      console.error("印刷エラー:", err);
+      toastError("印刷準備失敗", {
+        description: "印刷の準備中にエラーが発生しました"
+      });
     }
   };
 
@@ -202,6 +276,9 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
     )
   }
 
+  // 自分の投稿かどうかを確認
+  const isOwnPost = user?.id === post.user_id;
+
   return (
     <div className="container py-10">
       <Button
@@ -272,31 +349,61 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
                 <MessageSquare className="h-4 w-4" />
                 コメント
               </Button>
-              <Button variant="ghost" size="sm" className="flex items-center gap-2">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="flex items-center gap-2"
+                onClick={shareToSns}
+              >
                 <Share2 className="h-4 w-4" />
                 シェア
               </Button>
-              
-              {/* 自分の投稿の場合のみNFC書き込みボタンを表示 */}
-              {user?.id === post.user_id && (
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="flex items-center gap-2 ml-auto"
-                  onClick={writeToNfcTag}
-                  disabled={!isNfcSupported || isNfcWriting}
-                >
-                  <Wifi className="h-4 w-4" />
-                  {isNfcWriting ? "書き込み中..." : "推しタグに書き込む"}
-                </Button>
-              )}
             </div>
             
-            {/* NFC非対応デバイスの場合の注意メッセージ */}
-            {user?.id === post.user_id && !isNfcSupported && (
-              <p className="text-xs text-amber-600 mt-2">
-                お使いのデバイスはNFC書き込みに対応していません。Chrome for Androidでアクセスしてください。
-              </p>
+            {/* 自分の投稿の場合のみ表示する機能ボタン */}
+            {isOwnPost && (
+              <div className="mt-6 pt-4 border-t border-border">
+                <p className="text-sm font-medium mb-3">推し活ツール</p>
+                <div className="flex flex-wrap gap-3">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex items-center gap-2"
+                    onClick={writeToNfcTag}
+                    disabled={!isNfcSupported || isNfcWriting}
+                  >
+                    <Wifi className="h-4 w-4" />
+                    {isNfcWriting ? "書き込み中..." : "推しタグに書き込む"}
+                  </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex items-center gap-2"
+                    onClick={shareToSns}
+                  >
+                    <Share className="h-4 w-4" />
+                    SNSで布教する
+                  </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex items-center gap-2"
+                    onClick={printPost}
+                  >
+                    <Printer className="h-4 w-4" />
+                    推し活を印刷する
+                  </Button>
+                </div>
+                
+                {/* NFC非対応デバイスの場合の注意メッセージ */}
+                {!isNfcSupported && (
+                  <p className="text-xs text-amber-600 mt-2">
+                    お使いのデバイスはNFC書き込みに対応していません。Chrome for Androidでアクセスしてください。
+                  </p>
+                )}
+              </div>
             )}
           </div>
         </div>
