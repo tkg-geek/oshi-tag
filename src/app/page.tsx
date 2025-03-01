@@ -18,17 +18,17 @@ export default function OshiTagLanding() {
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
               <div className="space-y-6">
                 <Badge className="bg-pink-100 text-pink-800 hover:bg-pink-100 px-3 py-1 text-sm">
-                  推し活を次のレベルへ
+                  推し活の新しいマストアイテム
                 </Badge>
                 <h1 className="text-4xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
                   あなたの推し活を
                   <br />
-                  もっと特別に
+                  もっと加速する
                 </h1>
                 <p className="text-xl text-muted-foreground">
-                  推しTagは推し活を記録・共有・印刷できるサービス。
+                  「推しTag」は推し活を記録・共有・印刷できるサービス。
                   <br />
-                  大切な思い出をもっと素敵に残そう。
+                  デジタルとアナログの垣根を超えた推し活の新しい形。
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button
@@ -37,7 +37,7 @@ export default function OshiTagLanding() {
                   >
                     無料で始める
                   </Button>
-                  <Button size="lg" variant="outline">
+                  <Button size="lg" variant="outline" className="text-pink-600 border-pink-300 hover:bg-pink-50 hover:text-pink-700">
                     詳しく見る
                   </Button>
                 </div>
@@ -106,7 +106,7 @@ export default function OshiTagLanding() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="w-full text-pink-600 border-pink-300 hover:bg-pink-50 hover:text-pink-700">
                     詳しく見る
                   </Button>
                 </CardFooter>
@@ -136,7 +136,7 @@ export default function OshiTagLanding() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="w-full text-purple-600 border-purple-300 hover:bg-purple-50 hover:text-purple-700">
                     詳しく見る
                   </Button>
                 </CardFooter>
@@ -166,7 +166,7 @@ export default function OshiTagLanding() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="w-full text-indigo-600 border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700">
                     詳しく見る
                   </Button>
                 </CardFooter>
@@ -421,6 +421,14 @@ export default function OshiTagLanding() {
                       <Check className="h-5 w-5 text-pink-500 mt-0.5 flex-shrink-0" />
                       <span>標準画質での印刷</span>
                     </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-5 w-5 text-pink-500 mt-0.5 flex-shrink-0" />
+                      <span>NFCタグ書き込み機能</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-5 w-5 text-pink-500 mt-0.5 flex-shrink-0" />
+                      <span>カスタムOGP画像</span>
+                    </li>
                   </ul>
                 </CardContent>
                 <CardFooter>
@@ -587,9 +595,6 @@ export default function OshiTagLanding() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button size="lg" className="bg-white text-pink-600 hover:bg-white/90">
                     無料で始める
-                  </Button>
-                  <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10">
-                    詳しく見る
                   </Button>
                 </div>
               </div>
