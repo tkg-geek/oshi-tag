@@ -79,13 +79,14 @@ export function PostForm({
         const filePath = `${user.id}/${fileName}`
 
         const { error: uploadError } = await supabase.storage
-          .from("post_images")
+          .from("images")
           .upload(filePath, imageFile)
 
         if (uploadError) throw uploadError
 
         // 画像のURLを取得
-        const { data } = supabase.storage.from("post_images").getPublicUrl(filePath)
+        const { data } = supabase.storage.from("images")
+          .getPublicUrl(filePath)
         image_url = data.publicUrl
       }
 
@@ -93,11 +94,12 @@ export function PostForm({
       const postData = {
         title,
         content,
-        image_url,
+        image_url: image_url || undefined,
         visibility,
-        password: visibility === "limited" ? password : null,
         user_id: user.id,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
+        // 限定公開の場合はパスワードを設定
+        ...(visibility === "limited" && { password }),
       }
 
       // 外部のonSubmit関数が提供されている場合はそれを使用

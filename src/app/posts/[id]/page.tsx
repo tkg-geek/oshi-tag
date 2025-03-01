@@ -11,9 +11,12 @@ import { useAuth } from "@/hooks/use-auth"
 import { Button } from "@/components/ui/button"
 import { Post } from "@/types"
 import { ArrowLeft, Heart, MessageSquare, Share2 } from "lucide-react"
+import React from "react"
 
 export default function PostDetailPage({ params }: { params: { id: string } }) {
-  const { id } = params
+  // React.use()でparamsをアンラップ
+  const unwrappedParams = React.use(params as any) as { id: string }
+  const { id } = unwrappedParams
   const router = useRouter()
   const { user } = useAuth()
   const [post, setPost] = useState<Post | null>(null)
@@ -53,9 +56,16 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
           .eq("id", postData.user_id)
           .single()
 
-        if (userError) throw userError
-
-        setAuthor(userData)
+        if (userError) {
+          console.warn("ユーザープロフィールの取得中にエラーが発生しました", userError)
+          // プロフィールが見つからない場合はデフォルト値を設定
+          setAuthor({
+            username: "ユーザー",
+            avatar_url: undefined
+          })
+        } else {
+          setAuthor(userData)
+        }
       } catch (error) {
         console.error("投稿の取得中にエラーが発生しました", error)
         setError("投稿の読み込み中にエラーが発生しました")
