@@ -28,7 +28,7 @@ export default function OshiTagLanding() {
                 <p className="text-xl text-muted-foreground">
                   「推しTag」は推し活を記録・共有・印刷できるサービス。
                   <br />
-                  デジタルとアナログの垣根を超えた推し活の新しい形。
+                  デジタルとアナログの垣根を超えた推し活の新しい形です。
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button

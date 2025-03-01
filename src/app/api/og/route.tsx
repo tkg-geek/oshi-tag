@@ -45,6 +45,8 @@ export async function GET(request: NextRequest) {
                 color: 'white',
                 textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
                 marginBottom: '20px',
+                maxWidth: '100%',
+                wordBreak: 'break-word',
               }}
             >
               {title}
@@ -65,6 +67,10 @@ export async function GET(request: NextRequest) {
       {
         width: 1200,
         height: 630,
+        headers: {
+          'Cache-Control': 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800',
+          'Content-Type': 'image/png',
+        },
       }
     )
   } catch (e: any) {

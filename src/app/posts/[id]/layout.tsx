@@ -56,9 +56,34 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     }
   } catch (error) {
     console.error('メタデータ生成エラー:', error)
+    
+    // エラー時はデフォルトのOGP画像を使用
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const baseUrlWithProtocol = baseUrl.startsWith('http') ? baseUrl : `https://${baseUrl}`;
+    const defaultOgImageUrl = `${baseUrlWithProtocol}/oshi-tag_ogp.png`;
+    
     return {
       title: '推しTag - 推し活を記録・共有・印刷',
       description: 'NFCタグと印刷・OGP技術を活用した推し活支援サービス',
+      openGraph: {
+        title: '推しTag - 推し活を記録・共有・印刷',
+        description: 'NFCタグと印刷・OGP技術を活用した推し活支援サービス',
+        images: [
+          {
+            url: defaultOgImageUrl,
+            width: 1200,
+            height: 630,
+            alt: '推しTag',
+          },
+        ],
+        type: 'article',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: '推しTag - 推し活を記録・共有・印刷',
+        description: 'NFCタグと印刷・OGP技術を活用した推し活支援サービス',
+        images: [defaultOgImageUrl],
+      },
     }
   }
 }
