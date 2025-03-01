@@ -9,6 +9,7 @@ import { ja } from "date-fns/locale"
 import { supabase, getImageUrl } from "@/lib/supabase"
 import { useAuth } from "@/hooks/use-auth"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Post } from "@/types"
 import { ArrowLeft, Heart, MessageSquare, Share2 } from "lucide-react"
 import React from "react"
@@ -27,6 +28,9 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
   useEffect(() => {
     const fetchPost = async () => {
       try {
+        console.log("投稿ID:", id)
+        console.log("現在のユーザー:", user?.id)
+
         // 投稿データを取得
         const { data: postData, error: postError } = await supabase
           .from("posts")
@@ -34,19 +38,29 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
           .eq("id", id)
           .single()
 
-        if (postError) throw postError
+        if (postError) {
+          console.error("投稿データの取得エラー:", postError)
+          throw postError
+        }
 
         if (!postData) {
+          console.error("投稿データが見つかりません")
           setError("投稿が見つかりませんでした")
+          setLoading(false)
           return
         }
+
+        console.log("取得した投稿データ:", postData)
 
         // 非公開投稿の場合、作成者のみアクセス可能
         if (postData.visibility === "private" && postData.user_id !== user?.id) {
+          console.log("非公開投稿へのアクセス制限")
           setError("この投稿にアクセスする権限がありません")
+          setLoading(false)
           return
         }
 
+        // 投稿データをセット
         setPost(postData)
 
         // 投稿者の情報を取得
