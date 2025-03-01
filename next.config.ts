@@ -11,11 +11,11 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
+    domains: ["bqeehatmvsfqsjncoiud.supabase.co"],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '*.supabase.co',
-        pathname: '/storage/v1/object/public/**',
+        hostname: '**',
       },
     ],
   },

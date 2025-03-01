@@ -130,12 +130,27 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
       <div className="bg-card rounded-lg shadow-md overflow-hidden">
         {post.image_url && (
           <div className="relative w-full h-[400px]">
-            <Image
-              src={post.image_url}
-              alt={post.title}
-              fill
-              className="object-cover"
+            {/* 画像URLをコンソールに出力 */}
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `console.log("画像URL:", ${JSON.stringify(post.image_url)})`,
+              }}
             />
+            {/* Next.jsのImageコンポーネントが問題を起こしている可能性があるため、通常のimgタグも試す */}
+            {process.env.NODE_ENV === "production" ? (
+              <img
+                src={post.image_url}
+                alt={post.title}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <Image
+                src={post.image_url}
+                alt={post.title}
+                fill
+                className="object-cover"
+              />
+            )}
           </div>
         )}
 
