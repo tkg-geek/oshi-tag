@@ -98,8 +98,8 @@ export function PostForm({
         visibility,
         user_id: user.id,
         updated_at: new Date().toISOString(),
-        // 限定公開の場合はパスワードを設定
-        ...(visibility === "limited" && { password }),
+        // 限定公開の場合でもパスワードフィールドは使用しない
+        // ...(visibility === "limited" && { password }),
       }
 
       // 外部のonSubmit関数が提供されている場合はそれを使用
@@ -225,6 +225,9 @@ export function PostForm({
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <p className="text-xs text-muted-foreground mt-1">
+                注意: 現在、パスワード保護機能は実装中です。限定公開の投稿はURLを知っている人のみが閲覧できます。
+              </p>
             </div>
           )}
 
