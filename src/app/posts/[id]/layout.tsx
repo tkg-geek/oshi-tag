@@ -23,20 +23,10 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
       ? post.content.substring(0, 100) + (post.content.length > 100 ? '...' : '')
       : '推し活を記録・共有・印刷できるサービス'
 
-    // OGP画像のURLを生成
+    // ファイルベースのOGP画像のURLを生成
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    // URLが既に https:// で始まっているか確認
     const baseUrlWithProtocol = baseUrl.startsWith('http') ? baseUrl : `https://${baseUrl}`;
     
-    // 動的OGP画像のURLを生成
-    const ogImageUrl = `${baseUrlWithProtocol}/api/og?title=${encodeURIComponent(post.title)}`;
-    
-    // ファイルベースのOGP画像のURLを生成
-    const fileBasedOgImageUrl = `${baseUrlWithProtocol}/posts/${params.id}/opengraph-image`;
-    
-    console.log('生成されたOGP画像URL:', ogImageUrl);
-    console.log('ファイルベースのOGP画像URL:', fileBasedOgImageUrl);
-
     return {
       title: `${post.title} | 推しTag`,
       description,
@@ -45,7 +35,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
         description,
         images: [
           {
-            url: fileBasedOgImageUrl,
+            url: `/posts/${params.id}/opengraph-image`,
             width: 1200,
             height: 630,
             alt: post.title,
@@ -57,16 +47,11 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
         card: 'summary_large_image',
         title: `${post.title} | 推しTag`,
         description,
-        images: [fileBasedOgImageUrl],
+        images: [`/posts/${params.id}/twitter-image`],
       },
     }
   } catch (error) {
     console.error('メタデータ生成エラー:', error)
-    
-    // エラー時はデフォルトのOGP画像を使用
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    const baseUrlWithProtocol = baseUrl.startsWith('http') ? baseUrl : `https://${baseUrl}`;
-    const defaultOgImageUrl = `${baseUrlWithProtocol}/oshi-tag_ogp.png`;
     
     return {
       title: '推しTag - 推し活を記録・共有・印刷',
@@ -76,7 +61,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
         description: 'NFCタグと印刷・OGP技術を活用した推し活支援サービス',
         images: [
           {
-            url: defaultOgImageUrl,
+            url: '/opengraph-image',
             width: 1200,
             height: 630,
             alt: '推しTag',
@@ -88,7 +73,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
         card: 'summary_large_image',
         title: '推しTag - 推し活を記録・共有・印刷',
         description: 'NFCタグと印刷・OGP技術を活用した推し活支援サービス',
-        images: [defaultOgImageUrl],
+        images: ['/twitter-image'],
       },
     }
   }

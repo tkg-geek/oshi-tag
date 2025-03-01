@@ -10,11 +10,6 @@ export const size = {
 export const contentType = 'image/png'
 
 export default async function Image() {
-  // アプリのベースURLを取得
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-  const baseUrlWithProtocol = baseUrl.startsWith('http') ? baseUrl : `https://${baseUrl}`;
-  const ogImageUrl = `${baseUrlWithProtocol}/oshi-tag_ogp.png`;
-
   return new ImageResponse(
     (
       <div
@@ -25,9 +20,7 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundImage: `url(${ogImageUrl})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundImage: 'linear-gradient(to right, #ff3366, #ff33cc, #9933ff)',
           color: 'white',
           padding: '40px',
         }}
