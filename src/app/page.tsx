@@ -393,7 +393,7 @@ export default function OshiTagLanding() {
                 あなたの<span className="text-pink-500">推し活スタイル</span>に合わせたプラン
               </h2>
               <p className="mt-4 text-xl text-muted-foreground max-w-3xl mx-auto">
-                無料プランから始めて、必要に応じてアップグレードできます
+                本当は全部無料だけど、それっぽく見えるからTKGが入れてみたよ。
               </p>
             </div>
 
@@ -532,7 +532,7 @@ export default function OshiTagLanding() {
                 よくある質問
               </h2>
               <p className="text-muted-foreground text-center mb-8">
-                推しTagについてよくある質問にお答えします
+                メインの実装を諦めて、よくある質問を作ってみました。気づいた人は読んでください。
               </p>
             </div>
 
@@ -541,39 +541,44 @@ export default function OshiTagLanding() {
                 <AccordionItem value="item-1">
                   <AccordionTrigger>推しTagとは何ですか？</AccordionTrigger>
                   <AccordionContent>
-                    推しTagは、あなたの推し活を記録・共有・印刷できるサービスです。推しイベントの参加記録や思い出を整理し、同じ推しを持つ仲間と共有したり、思い出をフォトブックとして印刷することができます。
+                    推しTagは、あなたの推し活を記録・共有・印刷できるサービスです。<br />推しイベントの参加記録や思い出を整理し、同じ推しを持つ仲間と共有したり、思い出をフォトブックとして印刷することができます。
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2">
                   <AccordionTrigger>無料プランでも十分に使えますか？</AccordionTrigger>
                   <AccordionContent>
-                    はい、無料プランでも月10件までの投稿、基本的な共有機能、標準画質での印刷など、主要な機能をお使いいただけます。より多くの投稿や高度な機能が必要な場合は、有料プランへのアップグレードをご検討ください。
+                    はい、料金プランはTKGが作ってみたかったので作っただけです。<br />実際は無料ですべて使用する想定です。
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-3">
                   <AccordionTrigger>NFCタグ機能とは何ですか？</AccordionTrigger>
                   <AccordionContent>
-                    NFCタグ機能を使うと、あなたの推し活の記録をNFCタグに書き込むことができます。このタグをグッズや写真に貼り付けることで、スマートフォンをかざすだけで関連する推し活の記録を表示することができます。思い出を物理的なアイテムと紐づけることができる便利な機能です。
+                    NFCタグ機能を使うと、あなたの推し活の記録をNFCタグに書き込むことができます。<br />このタグをグッズや写真に貼り付けることで、スマートフォンをかざすだけで関連する推し活の記録を表示することができます。<br />思い出を物理的なアイテムと紐づけることができる便利な機能です。
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-4">
                   <AccordionTrigger>印刷機能はどのように使えますか？</AccordionTrigger>
                   <AccordionContent>
                     EPSON Connect
-                    APIを利用した印刷機能により、あなたの推し活をきれいにレイアウトして写真サイズで印刷することができます。対応するEPSONプリンターをお持ちであれば、ワンクリックで印刷指示を送ることができます。プレミアムプランでは、プロフェッショナル印刷サービスも利用可能です。
+                    APIを利用した印刷機能により、あなたの推し活をきれいにレイアウトして写真サイズで印刷することができます。<br />対応するEPSONプリンターをお持ちであれば、ワンクリックで印刷指示を送ることができます。<br />しかし今回のデモまでにTKGがパワーを割くけなかった場合、実装されていないかもしれません。
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-5">
                   <AccordionTrigger>プライバシー設定について教えてください</AccordionTrigger>
                   <AccordionContent>
-                    Oshi
-                    Tagでは3種類のプライバシー設定をご用意しています。「非公開」は自分だけが閲覧できる設定、「公開」は誰でも閲覧でき一覧にも表示される設定、「限定公開」はURLを知っている人だけが閲覧でき、パスワード保護も可能な設定です。あなたの推し活をどのように共有するか、完全にコントロールできます。
+                    推しTagでは3種類のプライバシー設定をご用意しています。<br />「非公開」は自分だけが閲覧できる設定、「公開」は誰でも閲覧でき一覧にも表示される設定、「限定公開」はURLを知っている人だけが閲覧でき、パスワード保護（予定）も可能な設定です。<br />あなたの推し活をどのように共有するか、完全にコントロールできます。
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-6">
                   <AccordionTrigger>有料プランはいつでもキャンセルできますか？</AccordionTrigger>
                   <AccordionContent>
-                    はい、有料プランはいつでもキャンセルすることができます。キャンセル後は、次の請求サイクルから無料プランに戻ります。それまでに投稿したコンテンツはそのまま保持されますが、無料プランの制限が適用されます。
+                    はい、有料プランはダミーです。<br />TKGがそれっぽいLPを作りたかっただけです。<br />無料です。タダ！！
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-7">
+                  <AccordionTrigger>TKGって一体何なんですか？</AccordionTrigger>
+                  <AccordionContent>
+                    TKGは何を聞いてもすべて、T・K・Gから始まる文章で全て答えてくれる人工無能です。ヒィーア！！！
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
