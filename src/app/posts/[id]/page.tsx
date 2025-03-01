@@ -413,9 +413,35 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
                 <Share2 className="h-4 w-4" />
                 シェア
               </Button>
+              
+              {/* 自分の投稿の場合のみ表示する編集・削除ボタン */}
+              {isOwnPost && (
+                <>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="flex items-center gap-2"
+                    onClick={() => router.push(`/posts/edit/${id}`)}
+                  >
+                    <Edit className="h-4 w-4" />
+                    編集
+                  </Button>
+                  
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="flex items-center gap-2 text-destructive"
+                    onClick={() => setIsDeleteDialogOpen(true)}
+                    disabled={isDeleting}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                    {isDeleting ? "削除中..." : "削除"}
+                  </Button>
+                </>
+              )}
             </div>
             
-            {/* 自分の投稿の場合のみ表示する機能ボタン */}
+            {/* 自分の投稿の場合のみ表示する推し活ツール */}
             {isOwnPost && (
               <div className="mt-6 pt-4 border-t border-border">
                 <p className="text-sm font-medium mb-3">推し活ツール</p>
@@ -449,27 +475,6 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
                   >
                     <Printer className="h-4 w-4" />
                     推し活を印刷する
-                  </Button>
-                  
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="flex items-center gap-2"
-                    onClick={() => router.push(`/posts/edit/${id}`)}
-                  >
-                    <Edit className="h-4 w-4" />
-                    投稿を編集
-                  </Button>
-                  
-                  <Button 
-                    variant="destructive" 
-                    size="sm" 
-                    className="flex items-center gap-2 ml-auto"
-                    onClick={() => setIsDeleteDialogOpen(true)}
-                    disabled={isDeleting}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                    {isDeleting ? "削除中..." : "投稿を削除"}
                   </Button>
                 </div>
                 
