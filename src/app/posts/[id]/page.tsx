@@ -25,19 +25,32 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
   const [author, setAuthor] = useState<{ username: string; avatar_url?: string } | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [debugInfo, setDebugInfo] = useState<string>("")
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
         console.log("投稿ID:", id)
-        console.log("現在のユーザー:", user?.id)
-
+        console.log("現在のユーザー:", user?.id || "未ログイン")
+        
+        let debugMessages = []
+        
         // 匿名ユーザー用のSupabaseクライアントを作成
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
         const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+        
+        debugMessages.push(`Supabase URL: ${supabaseUrl ? "設定済み" : "未設定"}`)
+        debugMessages.push(`Supabase Anon Key: ${supabaseAnonKey ? "設定済み" : "未設定"}`)
+        
+        if (!supabaseUrl || !supabaseAnonKey) {
+          throw new Error("Supabase環境変数が正しく設定されていません")
+        }
+        
         const anonSupabase = createClient(supabaseUrl, supabaseAnonKey);
+        debugMessages.push("匿名Supabaseクライアント作成完了")
 
         // 投稿データを取得
+        debugMessages.push("投稿データ取得開始")
         const { data: postData, error: postError } = await anonSupabase
           .from("posts")
           .select("*")
@@ -45,22 +58,22 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
           .single()
 
         if (postError) {
-          console.error("投稿データの取得エラー:", postError)
-          throw postError
+          debugMessages.push(`投稿データ取得エラー: ${JSON.stringify(postError)}`)
+          throw new Error(`投稿データの取得に失敗しました: ${postError.message}`)
         }
 
         if (!postData) {
-          console.error("投稿データが見つかりません")
+          debugMessages.push("投稿データが見つかりません")
           setError("投稿が見つかりませんでした")
           setLoading(false)
           return
         }
 
-        console.log("取得した投稿データ:", postData)
+        debugMessages.push(`投稿データ取得成功: ${postData.title}`)
 
         // 非公開投稿の場合、作成者のみアクセス可能
         if (postData.visibility === "private" && postData.user_id !== user?.id) {
-          console.log("非公開投稿へのアクセス制限")
+          debugMessages.push("非公開投稿へのアクセス制限")
           setError("この投稿にアクセスする権限がありません")
           setLoading(false)
           return
@@ -68,8 +81,10 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
 
         // 投稿データをセット
         setPost(postData)
+        debugMessages.push("投稿データをセット完了")
 
         // 投稿者の情報を取得
+        debugMessages.push("投稿者情報取得開始")
         const { data: userData, error: userError } = await anonSupabase
           .from("profiles")
           .select("username, avatar_url")
@@ -77,18 +92,22 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
           .single()
 
         if (userError) {
-          console.warn("ユーザープロフィールの取得中にエラーが発生しました", userError)
+          debugMessages.push(`ユーザープロフィール取得エラー: ${JSON.stringify(userError)}`)
           // プロフィールが見つからない場合はデフォルト値を設定
           setAuthor({
             username: "ユーザー",
             avatar_url: undefined
           })
         } else {
+          debugMessages.push(`ユーザープロフィール取得成功: ${userData.username}`)
           setAuthor(userData)
         }
-      } catch (error) {
+        
+        setDebugInfo(debugMessages.join("\n"))
+      } catch (error: any) {
         console.error("投稿の取得中にエラーが発生しました", error)
-        setError("投稿の読み込み中にエラーが発生しました")
+        setError(error?.message || "投稿の読み込み中にエラーが発生しました")
+        setDebugInfo(`エラー詳細: ${error?.message || "不明なエラー"}`)
       } finally {
         setLoading(false)
       }
@@ -115,7 +134,12 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
       <div className="container py-10">
         <div className="text-center py-20">
           <p className="text-red-500 mb-4">{error}</p>
-          <Button asChild variant="outline">
+          {process.env.NODE_ENV === 'development' && debugInfo && (
+            <div className="mt-4 p-4 bg-gray-100 rounded text-left text-xs overflow-auto max-h-60">
+              <pre>{debugInfo}</pre>
+            </div>
+          )}
+          <Button asChild variant="outline" className="mt-4">
             <Link href="/posts">投稿一覧に戻る</Link>
           </Button>
         </div>
