@@ -1,0 +1,7 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#F9F1F5"/>
+  <path d="M400 150C323.858 150 262 211.858 262 288C262 364.142 323.858 426 400 426C476.142 426 538 364.142 538 288C538 211.858 476.142 150 400 150Z" fill="#FFC0CB" fill-opacity="0.5"/>
+  <path d="M400 200C351.34 200 312 239.34 312 288C312 336.66 351.34 376 400 376C448.66 376 488 336.66 488 288C488 239.34 448.66 200 400 200Z" fill="#FF69B4" fill-opacity="0.5"/>
+  <path d="M400 250C379.01 250 362 267.01 362 288C362 308.99 379.01 326 400 326C420.99 326 438 308.99 438 288C438 267.01 420.99 250 400 250Z" fill="#FF1493" fill-opacity="0.7"/>
+  <text x="400" y="500" font-family="Arial" font-size="24" fill="#666666" text-anchor="middle">推しTag</text>
+</svg> 
