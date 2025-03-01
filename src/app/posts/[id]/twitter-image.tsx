@@ -12,6 +12,11 @@ export const contentType = 'image/png'
 
 export default async function Image({ params }: { params: { id: string } }) {
   try {
+    // アプリのベースURLを取得
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+    const baseUrlWithProtocol = baseUrl.startsWith('http') ? baseUrl : `https://${baseUrl}`;
+    const ogImageUrl = `${baseUrlWithProtocol}/oshi-tag_ogp.png`;
+
     // 投稿データを取得
     const { data: post } = await supabase
       .from('posts')
@@ -31,7 +36,7 @@ export default async function Image({ params }: { params: { id: string } }) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundImage: 'url(/oshi-tag_ogp.png)',
+            backgroundImage: `url(${ogImageUrl})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             color: 'white',
@@ -85,6 +90,11 @@ export default async function Image({ params }: { params: { id: string } }) {
     )
   } catch (e) {
     // エラー時はデフォルトのOGP画像を返す
+    // アプリのベースURLを取得
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+    const baseUrlWithProtocol = baseUrl.startsWith('http') ? baseUrl : `https://${baseUrl}`;
+    const ogImageUrl = `${baseUrlWithProtocol}/oshi-tag_ogp.png`;
+
     return new ImageResponse(
       (
         <div
@@ -95,7 +105,7 @@ export default async function Image({ params }: { params: { id: string } }) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundImage: 'url(/oshi-tag_ogp.png)',
+            backgroundImage: `url(${ogImageUrl})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             color: 'white',

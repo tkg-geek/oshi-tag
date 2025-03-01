@@ -10,6 +10,11 @@ export async function GET(request: NextRequest) {
     // タイトルを取得
     const title = searchParams.get('title') || '推しTag'
     
+    // アプリのベースURLを取得
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+    const baseUrlWithProtocol = baseUrl.startsWith('http') ? baseUrl : `https://${baseUrl}`;
+    const ogImageUrl = `${baseUrlWithProtocol}/oshi-tag_ogp.png`;
+    
     return new ImageResponse(
       (
         <div
@@ -20,7 +25,7 @@ export async function GET(request: NextRequest) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundImage: 'url(/oshi-tag_ogp.png)',
+            backgroundImage: `url(${ogImageUrl})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             color: 'white',

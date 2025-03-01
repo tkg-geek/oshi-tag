@@ -27,9 +27,15 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
     // URLが既に https:// で始まっているか確認
     const baseUrlWithProtocol = baseUrl.startsWith('http') ? baseUrl : `https://${baseUrl}`;
+    
+    // 動的OGP画像のURLを生成
     const ogImageUrl = `${baseUrlWithProtocol}/api/og?title=${encodeURIComponent(post.title)}`;
     
+    // ファイルベースのOGP画像のURLを生成
+    const fileBasedOgImageUrl = `${baseUrlWithProtocol}/posts/${params.id}/opengraph-image`;
+    
     console.log('生成されたOGP画像URL:', ogImageUrl);
+    console.log('ファイルベースのOGP画像URL:', fileBasedOgImageUrl);
 
     return {
       title: `${post.title} | 推しTag`,
@@ -39,7 +45,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
         description,
         images: [
           {
-            url: ogImageUrl,
+            url: fileBasedOgImageUrl,
             width: 1200,
             height: 630,
             alt: post.title,
@@ -51,7 +57,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
         card: 'summary_large_image',
         title: `${post.title} | 推しTag`,
         description,
-        images: [ogImageUrl],
+        images: [fileBasedOgImageUrl],
       },
     }
   } catch (error) {
