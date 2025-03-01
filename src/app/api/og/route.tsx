@@ -20,7 +20,9 @@ export async function GET(request: NextRequest) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            background: 'linear-gradient(to right, #ec4899, #9333ea)',
+            backgroundImage: 'url(/oshi-tag_ogp.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
             color: 'white',
             padding: '40px',
           }}
@@ -31,36 +33,17 @@ export async function GET(request: NextRequest) {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              background: 'rgba(255, 255, 255, 0.9)',
-              borderRadius: '24px',
-              padding: '40px',
               width: '90%',
-              boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+              padding: '20px',
             }}
           >
             <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: '20px',
-              }}
-            >
-              <div
-                style={{
-                  fontSize: '36px',
-                  fontWeight: 'bold',
-                  color: '#9333ea',
-                }}
-              >
-                推しTag
-              </div>
-            </div>
-            <div
-              style={{
-                fontSize: '48px',
+                fontSize: '64px',
                 fontWeight: 'bold',
                 textAlign: 'center',
-                color: '#333',
+                color: 'white',
+                textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
                 marginBottom: '20px',
               }}
             >
@@ -68,12 +51,13 @@ export async function GET(request: NextRequest) {
             </div>
             <div
               style={{
-                fontSize: '24px',
-                color: '#666',
+                fontSize: '32px',
+                color: 'white',
                 textAlign: 'center',
+                textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
               }}
             >
-              私の推しを布教します！
+              #推しタグ
             </div>
           </div>
         </div>
