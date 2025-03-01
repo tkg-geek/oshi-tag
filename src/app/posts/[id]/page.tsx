@@ -11,9 +11,10 @@ import { useAuth } from "@/hooks/use-auth"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Post } from "@/types"
-import { ArrowLeft, Heart, MessageSquare, Share2 } from "lucide-react"
+import { ArrowLeft, Heart, MessageSquare, Share2, Wifi } from "lucide-react"
 import React from "react"
 import { createClient } from '@supabase/supabase-js'
+import { toast, success, error as toastError } from "@/components/ui/toast"
 
 export default function PostDetailPage({ params }: { params: { id: string } }) {
   // React.use()でparamsをアンラップ
@@ -26,6 +27,47 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [debugInfo, setDebugInfo] = useState<string>("")
+  const [isNfcSupported, setIsNfcSupported] = useState<boolean>(false)
+  const [isNfcWriting, setIsNfcWriting] = useState<boolean>(false)
+
+  useEffect(() => {
+    // Web NFC APIのサポート確認
+    if (typeof window !== 'undefined') {
+      setIsNfcSupported('NDEFReader' in window);
+    }
+  }, []);
+
+  // NFCタグに書き込む関数
+  const writeToNfcTag = async () => {
+    if (!post) return;
+    
+    try {
+      setIsNfcWriting(true);
+      toast("NFCタグを近づけてください", "info", {
+        description: "スマートフォンにNFCタグを近づけて書き込みを行ってください"
+      });
+
+      // @ts-ignore - Web NFC APIはTypeScriptの型定義がないため
+      const ndef = new NDEFReader();
+      await ndef.write({
+        records: [
+          { recordType: "url", data: `${window.location.origin}/posts/${id}` },
+          { recordType: "text", data: post.title }
+        ]
+      });
+
+      success("書き込み成功", {
+        description: "NFCタグへの書き込みが完了しました"
+      });
+    } catch (err: any) {
+      console.error("NFC書き込みエラー:", err);
+      toastError("書き込み失敗", {
+        description: err?.message || "NFCタグへの書き込みに失敗しました"
+      });
+    } finally {
+      setIsNfcWriting(false);
+    }
+  };
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -234,7 +276,28 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
                 <Share2 className="h-4 w-4" />
                 シェア
               </Button>
+              
+              {/* 自分の投稿の場合のみNFC書き込みボタンを表示 */}
+              {user?.id === post.user_id && (
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex items-center gap-2 ml-auto"
+                  onClick={writeToNfcTag}
+                  disabled={!isNfcSupported || isNfcWriting}
+                >
+                  <Wifi className="h-4 w-4" />
+                  {isNfcWriting ? "書き込み中..." : "推しタグに書き込む"}
+                </Button>
+              )}
             </div>
+            
+            {/* NFC非対応デバイスの場合の注意メッセージ */}
+            {user?.id === post.user_id && !isNfcSupported && (
+              <p className="text-xs text-amber-600 mt-2">
+                お使いのデバイスはNFC書き込みに対応していません。Chrome for Androidでアクセスしてください。
+              </p>
+            )}
           </div>
         </div>
       </div>
