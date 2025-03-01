@@ -10,9 +10,15 @@ interface LogoutButtonProps {
   variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"
   size?: "default" | "sm" | "lg" | "icon"
   showIcon?: boolean
+  className?: string
 }
 
-export function LogoutButton({ variant = "outline", size = "default", showIcon = false }: LogoutButtonProps) {
+export function LogoutButton({ 
+  variant = "outline", 
+  size = "default", 
+  showIcon = false,
+  className = ""
+}: LogoutButtonProps) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
 
@@ -30,7 +36,13 @@ export function LogoutButton({ variant = "outline", size = "default", showIcon =
   }
 
   return (
-    <Button variant={variant} size={size} onClick={handleLogout} disabled={loading}>
+    <Button 
+      variant={variant} 
+      size={size} 
+      onClick={handleLogout} 
+      disabled={loading}
+      className={className}
+    >
       {showIcon && <LogOut className="h-4 w-4 mr-2" />}
       {loading ? "ログアウト中..." : "ログアウト"}
     </Button>

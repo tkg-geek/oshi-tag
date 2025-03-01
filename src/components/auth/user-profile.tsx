@@ -67,7 +67,6 @@ export function UserProfile({ className }: UserProfileProps) {
       </Avatar>
       <div>
         <p className="text-sm font-medium">{username || "ユーザー"}</p>
-        <p className="text-xs text-muted-foreground">{user.email}</p>
       </div>
     </div>
   )
