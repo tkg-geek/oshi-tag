@@ -55,13 +55,13 @@ export default function OshiTagLanding() {
                     />
                   </div>
                 </div>
-                <div className="absolute -bottom-4 -right-4 h-24 w-24 rotate-12 rounded-lg bg-gradient-to-br from-pink-400 to-purple-500 p-1 shadow-lg">
-                  <div className="h-full w-full rounded bg-white p-2">
-                    <div className="h-full w-full rounded bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center">
-                      <Heart className="h-10 w-10 text-white" />
-                    </div>
-                  </div>
-                </div>
+                <Image 
+                  src="/oshi-tag_logo.png" 
+                  alt="推しTag" 
+                  width={96} 
+                  height={96} 
+                  className="absolute -bottom-4 -right-4 rotate-12 rounded-full shadow-lg"
+                />
               </div>
             </div>
           </div>
@@ -608,7 +608,13 @@ export default function OshiTagLanding() {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Sparkles className="h-6 w-6 text-pink-500" />
+                <Image 
+                  src="/oshi-tag_logo.png" 
+                  alt="推しTag" 
+                  width={24} 
+                  height={24} 
+                  className="rounded-full"
+                />
                 <span className="text-xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
                   推しTag
                 </span>

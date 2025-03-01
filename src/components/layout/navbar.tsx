@@ -1,12 +1,13 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/context/auth-context"
 import { Button } from "@/components/ui/button"
 import { UserProfile } from "@/components/auth/user-profile"
 import { LogoutButton } from "@/components/auth/logout-button"
-import { Sparkles, Menu, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { useState } from "react"
 
 export function Navbar() {
@@ -24,7 +25,13 @@ export function Navbar() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2">
-            <Sparkles className="h-6 w-6 text-pink-500" />
+            <Image 
+              src="/oshi-tag_logo.png" 
+              alt="推しTag" 
+              width={32} 
+              height={32} 
+              className="rounded-full"
+            />
             <span className="text-xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
               推しTag
             </span>
