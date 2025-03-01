@@ -128,62 +128,64 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
       </Button>
 
       <div className="bg-card rounded-lg shadow-md overflow-hidden">
-        {post.image_url && (
-          <div className="relative w-full h-[400px]">
-            {/* 画像URLをコンソールに出力 */}
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `console.log("画像URL:", ${JSON.stringify(post.image_url)})`,
-              }}
-            />
-            {/* プロキシAPIを通して画像を表示 */}
-            <img
-              src={`/api/image-proxy?url=${encodeURIComponent(post.image_url)}`}
-              alt={post.title}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        )}
-
-        <div className="p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="relative h-10 w-10 rounded-full overflow-hidden bg-muted">
-              {author.avatar_url ? (
+        <div className="md:flex">
+          {post.image_url && (
+            <div className="md:w-1/2 lg:w-2/5">
+              <div className="relative aspect-square">
+                <script
+                  dangerouslySetInnerHTML={{
+                    __html: `console.log("画像URL:", ${JSON.stringify(post.image_url)})`,
+                  }}
+                />
                 <img
-                  src={`/api/image-proxy?url=${encodeURIComponent(author.avatar_url)}`}
-                  alt={author.username}
+                  src={`/api/image-proxy?url=${encodeURIComponent(post.image_url)}`}
+                  alt={post.title}
                   className="w-full h-full object-cover"
                 />
-              ) : (
-                <div className="h-full w-full flex items-center justify-center bg-primary/10 text-primary font-medium">
-                  {author.username.charAt(0).toUpperCase()}
-                </div>
-              )}
+              </div>
             </div>
-            <div>
-              <p className="font-medium">{author.username}</p>
-              <p className="text-sm text-muted-foreground">
-                {format(new Date(post.created_at), "yyyy年MM月dd日 HH:mm", { locale: ja })}
-              </p>
+          )}
+
+          <div className="p-6 md:w-1/2 lg:w-3/5">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="relative h-10 w-10 rounded-full overflow-hidden bg-muted">
+                {author.avatar_url ? (
+                  <img
+                    src={`/api/image-proxy?url=${encodeURIComponent(author.avatar_url)}`}
+                    alt={author.username}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="h-full w-full flex items-center justify-center bg-primary/10 text-primary font-medium">
+                    {author.username.charAt(0).toUpperCase()}
+                  </div>
+                )}
+              </div>
+              <div>
+                <p className="font-medium">{author.username}</p>
+                <p className="text-sm text-muted-foreground">
+                  {format(new Date(post.created_at), "yyyy年MM月dd日 HH:mm", { locale: ja })}
+                </p>
+              </div>
             </div>
-          </div>
 
-          <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
-          <p className="mb-6 whitespace-pre-wrap">{post.content}</p>
+            <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
+            <p className="mb-6 whitespace-pre-wrap">{post.content}</p>
 
-          <div className="flex items-center gap-4 text-muted-foreground">
-            <Button variant="ghost" size="sm" className="flex items-center gap-2">
-              <Heart className="h-4 w-4" />
-              いいね
-            </Button>
-            <Button variant="ghost" size="sm" className="flex items-center gap-2">
-              <MessageSquare className="h-4 w-4" />
-              コメント
-            </Button>
-            <Button variant="ghost" size="sm" className="flex items-center gap-2">
-              <Share2 className="h-4 w-4" />
-              シェア
-            </Button>
+            <div className="flex items-center gap-4 text-muted-foreground">
+              <Button variant="ghost" size="sm" className="flex items-center gap-2">
+                <Heart className="h-4 w-4" />
+                いいね
+              </Button>
+              <Button variant="ghost" size="sm" className="flex items-center gap-2">
+                <MessageSquare className="h-4 w-4" />
+                コメント
+              </Button>
+              <Button variant="ghost" size="sm" className="flex items-center gap-2">
+                <Share2 className="h-4 w-4" />
+                シェア
+              </Button>
+            </div>
           </div>
         </div>
       </div>
