@@ -6,7 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { format } from "date-fns"
 import { ja } from "date-fns/locale"
-import { supabase } from "@/lib/supabase"
+import { supabase, getImageUrl } from "@/lib/supabase"
 import { useAuth } from "@/hooks/use-auth"
 import { Button } from "@/components/ui/button"
 import { Post } from "@/types"
@@ -137,10 +137,12 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
                     __html: `console.log("画像URL:", ${JSON.stringify(post.image_url)})`,
                   }}
                 />
-                <img
-                  src={post.image_url}
+                <Image
+                  src={getImageUrl(post.image_url)}
                   alt={post.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  unoptimized
                 />
               </div>
             </div>
@@ -150,10 +152,13 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
             <div className="flex items-center gap-3 mb-4">
               <div className="relative h-10 w-10 rounded-full overflow-hidden bg-muted">
                 {author.avatar_url ? (
-                  <img
-                    src={author.avatar_url}
+                  <Image
+                    src={getImageUrl(author.avatar_url)}
                     alt={author.username}
-                    className="w-full h-full object-cover"
+                    width={40}
+                    height={40}
+                    className="object-cover"
+                    unoptimized
                   />
                 ) : (
                   <div className="h-full w-full flex items-center justify-center bg-primary/10 text-primary font-medium">

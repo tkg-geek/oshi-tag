@@ -12,12 +12,21 @@ const nextConfig: NextConfig = {
   },
   images: {
     unoptimized: true,
-    domains: ["bqeehatmvsfqsjncoiud.supabase.co"],
+    domains: [
+      "bqeehatmvsfqsjncoiud.supabase.co",
+      "iasdhtntosavctuuwvgh.supabase.co",
+      "supabase.co"
+    ],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co',
+        pathname: '**',
+      }
     ],
   },
 };

@@ -15,4 +15,22 @@ if (!supabaseAnonKey) {
 export const supabase = createClient(
   supabaseUrl || '',
   supabaseAnonKey || ''
-) 
+)
+
+/**
+ * Supabaseストレージの画像URLを適切に処理する関数
+ * @param url 元の画像URL
+ * @returns 処理済みの画像URL
+ */
+export function getImageUrl(url: string | null | undefined): string {
+  if (!url) return '';
+  
+  // すでに変換済みのURLや外部URLはそのまま返す
+  if (url.startsWith('data:') || url.startsWith('blob:') || url.startsWith('http://localhost')) {
+    return url;
+  }
+  
+  // URLにクエリパラメータを追加してキャッシュを回避
+  const cacheBuster = `?t=${Date.now()}`;
+  return `${url}${cacheBuster}`;
+} 
