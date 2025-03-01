@@ -11,10 +11,20 @@ import { useAuth } from "@/hooks/use-auth"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Post } from "@/types"
-import { ArrowLeft, Heart, MessageSquare, Share2, Wifi, Printer, Share } from "lucide-react"
+import { ArrowLeft, Heart, MessageSquare, Share2, Wifi, Printer, Share, Trash2, Edit } from "lucide-react"
 import React from "react"
 import { createClient } from '@supabase/supabase-js'
 import { toast, success, error as toastError } from "@/components/ui/toast"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 
 export default function PostDetailPage({ params }: { params: { id: string } }) {
   // React.use()でparamsをアンラップ
@@ -29,6 +39,8 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
   const [debugInfo, setDebugInfo] = useState<string>("")
   const [isNfcSupported, setIsNfcSupported] = useState<boolean>(false)
   const [isNfcWriting, setIsNfcWriting] = useState<boolean>(false)
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
     // Web NFC APIのサポート確認
@@ -144,6 +156,45 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
       toastError("印刷準備失敗", {
         description: "印刷の準備中にエラーが発生しました"
       });
+    }
+  };
+
+  // 投稿を削除する関数
+  const deletePost = async () => {
+    if (!post || !user) return;
+    
+    try {
+      setIsDeleting(true);
+      toast("削除処理中...", "info", {
+        description: "投稿を削除しています"
+      });
+
+      // 投稿を削除
+      const { error } = await supabase
+        .from("posts")
+        .delete()
+        .eq("id", id)
+        .eq("user_id", user.id); // 自分の投稿のみ削除可能
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      success("削除完了", {
+        description: "投稿が正常に削除されました"
+      });
+      
+      // マイページにリダイレクト
+      router.push("/my-page");
+      router.refresh();
+    } catch (err: any) {
+      console.error("投稿削除エラー:", err);
+      toastError("削除失敗", {
+        description: err?.message || "投稿の削除に失敗しました"
+      });
+    } finally {
+      setIsDeleting(false);
+      setIsDeleteDialogOpen(false);
     }
   };
 
@@ -399,6 +450,27 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
                     <Printer className="h-4 w-4" />
                     推し活を印刷する
                   </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex items-center gap-2"
+                    onClick={() => router.push(`/posts/edit/${id}`)}
+                  >
+                    <Edit className="h-4 w-4" />
+                    投稿を編集
+                  </Button>
+                  
+                  <Button 
+                    variant="destructive" 
+                    size="sm" 
+                    className="flex items-center gap-2 ml-auto"
+                    onClick={() => setIsDeleteDialogOpen(true)}
+                    disabled={isDeleting}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                    {isDeleting ? "削除中..." : "投稿を削除"}
+                  </Button>
                 </div>
                 
                 {/* NFC非対応デバイスの場合の注意メッセージ */}
@@ -412,6 +484,28 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </div>
+
+      {/* 削除確認ダイアログ */}
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>投稿を削除しますか？</AlertDialogTitle>
+            <AlertDialogDescription>
+              この操作は取り消せません。投稿を削除すると、すべてのデータが完全に削除されます。
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isDeleting}>キャンセル</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={deletePost} 
+              disabled={isDeleting}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {isDeleting ? "削除中..." : "削除する"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 } 
