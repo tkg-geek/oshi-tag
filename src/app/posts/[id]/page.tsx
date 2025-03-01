@@ -76,7 +76,7 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
     try {
       // シェアURLの作成
       const shareUrl = `${window.location.origin}/posts/${id}`;
-      const shareText = `私の推しを布教します！\n#推しタグ\n${shareUrl}`;
+      const shareText = `私の推しを布教します！\n「${post.title}」\n#推しタグ\n${shareUrl}`;
       
       // Web Share APIが利用可能な場合はそれを使用
       if (navigator.share) {
@@ -111,7 +111,7 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
       if (!post) return;
       
       const shareUrl = `${window.location.origin}/posts/${id}`;
-      const shareText = `私の推しを布教します！\n#推しタグ\n${shareUrl}`;
+      const shareText = `私の推しを布教します！\n「${post.title}」\n#推しタグ\n${shareUrl}`;
       
       // クリップボードにテキストとURLをコピー
       navigator.clipboard.writeText(shareText).then(() => {
