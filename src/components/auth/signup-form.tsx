@@ -42,7 +42,7 @@ export function SignUpForm() {
       if (data.user) {
         const { error: profileError } = await supabase
           .from("profiles")
-          .insert([{ id: data.user.id, username, email }])
+          .insert([{ id: data.user.id, username }])
 
         if (profileError) throw profileError
       }

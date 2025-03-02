@@ -34,8 +34,9 @@ export default function OshiTagLanding() {
                   <Button
                     size="lg"
                     className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
+                    asChild
                   >
-                    無料で始める
+                    <Link href="/signup">無料で始める</Link>
                   </Button>
                   <Button size="lg" variant="outline" className="text-pink-600 border-pink-300 hover:bg-pink-50 hover:text-pink-700">
                     詳しく見る
@@ -432,7 +433,9 @@ export default function OshiTagLanding() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full">無料で始める</Button>
+                  <Button className="w-full" asChild>
+                    <Link href="/signup">無料で始める</Link>
+                  </Button>
                 </CardFooter>
               </Card>
 
@@ -598,8 +601,8 @@ export default function OshiTagLanding() {
                   今すぐ無料で始めて、あなたの大切な推し活の思い出を記録・共有・印刷しましょう。
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button size="lg" className="bg-white text-pink-600 hover:bg-white/90">
-                    無料で始める
+                  <Button size="lg" className="bg-white text-pink-600 hover:bg-white/90" asChild>
+                    <Link href="/signup">無料で始める</Link>
                   </Button>
                 </div>
               </div>
