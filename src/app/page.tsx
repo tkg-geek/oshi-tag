@@ -13,7 +13,7 @@ export default function OshiTagLanding() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-20 md:py-32">
-          <div className="absolute inset-0 bg-[url('/placeholder.svg?height=1080&width=1920')] bg-cover bg-center opacity-10"></div>
+          <div className="absolute inset-0 bg-[url('/hero.png')] bg-cover bg-center opacity-10"></div>
           <div className="container relative z-10">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
               <div className="space-y-6">
@@ -21,9 +21,9 @@ export default function OshiTagLanding() {
                   推し活の新しいマストアイテム
                 </Badge>
                 <h1 className="text-4xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
-                  あなたの推し活を
+                  推しタグで<br />みんなの推し活が
                   <br />
-                  もっと加速する
+                  加速する
                 </h1>
                 <p className="text-xl text-muted-foreground">
                   「推しTag」は推し活を記録・共有・印刷できるサービス。
@@ -48,7 +48,7 @@ export default function OshiTagLanding() {
                 <div className="relative overflow-hidden rounded-xl border bg-background shadow-xl">
                   <div className="flex flex-col items-center space-y-4">
                     <Image
-                      src="/placeholder.svg?height=1080&width=1920"
+                      src="/hero.png"
                       width={600}
                       height={400}
                       alt="推しTagのスクリーンショット"
@@ -257,7 +257,7 @@ export default function OshiTagLanding() {
                 <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 opacity-75 blur-sm"></div>
                 <div className="relative rounded-xl overflow-hidden border bg-background">
                   <Image
-                    src="/placeholder.svg?height=600&width=1200"
+                    src="/mypage.png"
                     width={1200}
                     height={600}
                     alt="マイページのスクリーンショット"
@@ -269,7 +269,7 @@ export default function OshiTagLanding() {
                 <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 opacity-75 blur-sm"></div>
                 <div className="relative rounded-xl overflow-hidden border bg-background">
                   <Image
-                    src="/placeholder.svg?height=600&width=1200"
+                    src="/new_post.png"
                     width={1200}
                     height={600}
                     alt="新規投稿画面のスクリーンショット"
@@ -281,7 +281,7 @@ export default function OshiTagLanding() {
                 <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 opacity-75 blur-sm"></div>
                 <div className="relative rounded-xl overflow-hidden border bg-background">
                   <Image
-                    src="/placeholder.svg?height=600&width=1200"
+                    src="/detail.png"
                     width={1200}
                     height={600}
                     alt="詳細ページのスクリーンショット"
