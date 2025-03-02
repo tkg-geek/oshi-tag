@@ -1,8 +1,13 @@
 import { Metadata } from 'next'
 import { supabase } from '@/lib/supabase'
 
+// 動的メタデータを生成する関数のパラメータ型定義
+type GenerateMetadataProps = {
+  params: { id: string }
+}
+
 // 動的メタデータを生成する関数
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: GenerateMetadataProps): Promise<Metadata> {
   try {
     // 投稿データを取得
     const { data: post } = await supabase
@@ -79,10 +84,11 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   }
 }
 
-export default function PostLayout({
-  children,
-}: {
+// レイアウトコンポーネントの型定義
+type PostLayoutProps = {
   children: React.ReactNode
-}) {
+}
+
+export default function PostLayout({ children }: PostLayoutProps) {
   return <>{children}</>
 } 

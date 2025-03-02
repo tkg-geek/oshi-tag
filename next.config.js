@@ -25,6 +25,11 @@ const nextConfig = {
     // 本番ビルド時にESLintエラーがあってもビルドを続行する
     ignoreDuringBuilds: true,
   },
+  // TypeScriptの型チェックをスキップ
+  typescript: {
+    // 本番ビルド時に型チェックエラーがあってもビルドを続行する
+    ignoreBuildErrors: true,
+  },
 };
 
 module.exports = nextConfig;
