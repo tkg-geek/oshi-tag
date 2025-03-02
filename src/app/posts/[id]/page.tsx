@@ -310,9 +310,9 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
               <pre>{debugInfo}</pre>
             </div>
           )}
-          <Button asChild variant="outline" className="mt-4">
-            <Link href="/posts">投稿一覧に戻る</Link>
-          </Button>
+          <div className="mt-8">
+            <Link href="/posts">みんなの投稿に戻る</Link>
+          </div>
         </div>
       </div>
     )
@@ -323,9 +323,9 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
       <div className="container py-10">
         <div className="text-center py-20">
           <p className="text-muted-foreground mb-4">投稿が見つかりませんでした</p>
-          <Button asChild variant="outline">
-            <Link href="/posts">投稿一覧に戻る</Link>
-          </Button>
+          <div className="mt-8">
+            <Link href="/posts">みんなの投稿に戻る</Link>
+          </div>
         </div>
       </div>
     )

@@ -46,7 +46,7 @@ export function Navbar() {
                 ホーム
               </Link>
               <Link href="/posts" className="text-sm font-medium hover:text-pink-500 transition-colors">
-                投稿一覧
+                みんなの投稿
               </Link>
               <Link href="/my-page" className="text-sm font-medium hover:text-pink-500 transition-colors">
                 マイページ
@@ -54,6 +54,9 @@ export function Navbar() {
             </>
           ) : isHomePage ? (
             <>
+              <Link href="/posts" className="text-sm font-medium hover:text-pink-500 transition-colors">
+                みんなの投稿
+              </Link>
               <Link href="#features" className="text-sm font-medium hover:text-pink-500 transition-colors">
                 機能
               </Link>
@@ -68,9 +71,14 @@ export function Navbar() {
               </Link>
             </>
           ) : (
-            <Link href="/" className="text-sm font-medium hover:text-pink-500 transition-colors">
-              ホーム
-            </Link>
+            <>
+              <Link href="/" className="text-sm font-medium hover:text-pink-500 transition-colors">
+                ホーム
+              </Link>
+              <Link href="/posts" className="text-sm font-medium hover:text-pink-500 transition-colors">
+                みんなの投稿
+              </Link>
+            </>
           )}
         </nav>
         
@@ -109,7 +117,7 @@ export function Navbar() {
                         className="text-sm font-medium hover:text-pink-500 transition-colors"
                         onClick={() => setMobileMenuOpen(false)}
                       >
-                        投稿一覧
+                        みんなの投稿
                       </Link>
                       <Link 
                         href="/my-page" 

@@ -79,8 +79,8 @@ export default function MyPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>マイ投稿</CardTitle>
-            <CardDescription>あなたの投稿一覧</CardDescription>
+            <CardTitle>投稿</CardTitle>
+            <CardDescription>あなたの投稿</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="text-center py-10 text-muted-foreground">

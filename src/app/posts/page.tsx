@@ -61,9 +61,9 @@ export default function PostsPage() {
   }, [])
 
   return (
-    <div className="container py-10">
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold">みんなの投稿</h1>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">投稿一覧</h1>
         <Button asChild className="bg-gradient-to-r from-pink-500 to-purple-600">
           <Link href="/posts/new" className="flex items-center gap-2">
             <PlusCircle className="h-4 w-4" />
