@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description: "NFCタグと印刷・OGP技術を活用した推し活支援サービス",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/oshi-tag_ogp.png",
         width: 1200,
         height: 630,
         alt: "推しTag",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "推しTag - 推し活を記録・共有・印刷",
     description: "NFCタグと印刷・OGP技術を活用した推し活支援サービス",
-    images: ["/twitter-image"],
+    images: ["/oshi-tag_ogp.png"],
   },
 };
 

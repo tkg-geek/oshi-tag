@@ -310,11 +310,11 @@ export default function OshiTagLanding() {
                 <CardHeader>
                   <div className="flex items-center gap-4">
                     <Avatar>
-                      <AvatarImage src="/placeholder.svg?height=40&width=40" alt="ユーザーアイコン" />
-                      <AvatarFallback>AK</AvatarFallback>
+                      <AvatarImage src="/TKG_icon.png" alt="TKGアイコン" />
+                      {/* <AvatarFallback>AK</AvatarFallback> */}
                     </Avatar>
                     <div>
-                      <CardTitle className="text-base">あきこ</CardTitle>
+                      <CardTitle className="text-base">TKG</CardTitle>
                       <CardDescription>アイドルオタク歴10年</CardDescription>
                     </div>
                   </div>
@@ -335,11 +335,11 @@ export default function OshiTagLanding() {
                 <CardHeader>
                   <div className="flex items-center gap-4">
                     <Avatar>
-                      <AvatarImage src="/placeholder.svg?height=40&width=40" alt="ユーザーアイコン" />
-                      <AvatarFallback>TK</AvatarFallback>
+                      <AvatarImage src="/keigo_icon_line2.png" alt="たけうってぃアイコン" />
+                      {/* <AvatarFallback>TK</AvatarFallback> */}
                     </Avatar>
                     <div>
-                      <CardTitle className="text-base">たくや</CardTitle>
+                      <CardTitle className="text-base">たけうってぃ</CardTitle>
                       <CardDescription>声優ファン</CardDescription>
                     </div>
                   </div>
@@ -360,11 +360,11 @@ export default function OshiTagLanding() {
                 <CardHeader>
                   <div className="flex items-center gap-4">
                     <Avatar>
-                      <AvatarImage src="/placeholder.svg?height=40&width=40" alt="ユーザーアイコン" />
-                      <AvatarFallback>MY</AvatarFallback>
+                      <AvatarImage src="/oshi-tag_logo.png" alt="タケウティーノアイコン" />
+                      {/* <AvatarFallback>MY</AvatarFallback> */}
                     </Avatar>
                     <div>
-                      <CardTitle className="text-base">みゆき</CardTitle>
+                      <CardTitle className="text-base">タケウティーノ</CardTitle>
                       <CardDescription>2.5次元舞台ファン</CardDescription>
                     </div>
                   </div>

@@ -9,63 +9,13 @@ export const size = {
 }
 export const contentType = 'image/png'
 
-export default async function Image() {
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundImage: 'linear-gradient(to right, #ff3366, #ff33cc, #9933ff)',
-          color: 'white',
-          padding: '40px',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '90%',
-            padding: '20px',
-          }}
-        >
-          <div
-            style={{
-              fontSize: '64px',
-              fontWeight: 'bold',
-              textAlign: 'center',
-              color: 'white',
-              textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
-              marginBottom: '20px',
-            }}
-          >
-            推しTag
-          </div>
-          <div
-            style={{
-              fontSize: '32px',
-              color: 'white',
-              textAlign: 'center',
-              textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
-            }}
-          >
-            推し活を記録・共有・印刷できるサービス
-          </div>
-        </div>
-      </div>
-    ),
-    {
-      ...size,
-      headers: {
-        'Cache-Control': 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800',
-        'Content-Type': contentType,
-      },
-    }
-  )
+// 静的な画像ファイルを使用するためのリダイレクト
+export default function Image() {
+  return new Response('', {
+    status: 307, // 一時的なリダイレクト
+    headers: {
+      'Location': '/oshi-tag_ogp.png',
+      'Cache-Control': 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=604800',
+    },
+  })
 } 
