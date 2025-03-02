@@ -38,9 +38,17 @@ interface PostCardProps {
   avatarUrl?: string
   showActions?: boolean
   showControls?: boolean
+  showContent?: boolean
 }
 
-export function PostCard({ post, username, avatarUrl, showActions = true, showControls = false }: PostCardProps) {
+export function PostCard({ 
+  post, 
+  username, 
+  avatarUrl, 
+  showActions = true, 
+  showControls = false,
+  showContent = true 
+}: PostCardProps) {
   const router = useRouter()
   const { user } = useAuth()
   const [liked, setLiked] = useState(false)
@@ -112,40 +120,43 @@ export function PostCard({ post, username, avatarUrl, showActions = true, showCo
   }
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden flex flex-col !p-0">
       {post.image_url && (
-        <div className="relative h-48 w-full">
+        <div className="w-full overflow-hidden">
           <img
             src={post.image_url}
             alt={post.title}
-            className="h-full w-full object-cover"
+            className="w-full object-cover aspect-[16/9]"
+            style={{ display: 'block' }}
           />
         </div>
       )}
-      <CardHeader className="pb-2">
+      <CardHeader className="pb-1 pt-4 px-4">
         <div className="flex justify-between items-start">
-          <CardTitle className="text-xl">{post.title}</CardTitle>
+          <CardTitle className="text-lg">{post.title}</CardTitle>
           {getVisibilityBadge()}
         </div>
         {username && (
-          <div className="flex items-center gap-2 mt-2">
-            <Avatar className="h-6 w-6">
+          <div className="flex items-center gap-2 mt-1">
+            <Avatar className="h-5 w-5">
               <AvatarImage src={avatarUrl} alt={username} />
               <AvatarFallback className="text-xs bg-pink-100 text-pink-800">
                 {username.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
-            <span className="text-sm text-muted-foreground">{username}</span>
+            <span className="text-xs text-muted-foreground">{username}</span>
             <span className="text-xs text-muted-foreground">•</span>
             <span className="text-xs text-muted-foreground">{formatDate(post.created_at)}</span>
           </div>
         )}
       </CardHeader>
-      <CardContent>
-        <p className="text-sm line-clamp-3">{post.content}</p>
-      </CardContent>
+      {showContent && (
+        <CardContent className="py-1 px-4">
+          <p className="text-xs line-clamp-2">{post.content}</p>
+        </CardContent>
+      )}
       {showActions && (
-        <CardFooter className="flex justify-between pt-2">
+        <CardFooter className="flex justify-between pt-1 pb-3 px-4">
           <div className="flex gap-2">
             <Button
               variant="ghost"

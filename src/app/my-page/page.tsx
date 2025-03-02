@@ -15,13 +15,13 @@ import { PlusCircle } from "lucide-react"
 
 export default function MyPage() {
   const router = useRouter()
-  const { user, isLoading } = useAuth()
+  const { user, loading: authLoading } = useAuth()
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     // 未認証の場合はログインページにリダイレクト
-    if (!isLoading && !user) {
+    if (!authLoading && !user) {
       router.push("/login")
       return
     }
@@ -46,9 +46,9 @@ export default function MyPage() {
 
       fetchUserPosts()
     }
-  }, [user, isLoading, router])
+  }, [user, authLoading, router])
 
-  if (isLoading || !user) {
+  if (authLoading || !user) {
     return (
       <div className="container py-10">
         <div className="animate-pulse space-y-4">
@@ -83,13 +83,13 @@ export default function MyPage() {
 
         <TabsContent value="all">
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(3)].map((_, i) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {[...Array(8)].map((_, i) => (
                 <div key={i} className="h-64 animate-pulse rounded-lg bg-muted"></div>
               ))}
             </div>
           ) : posts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {posts.map(post => (
                 <PostCard
                   key={post.id}
@@ -97,6 +97,7 @@ export default function MyPage() {
                   username={user.user_metadata.username || "ユーザー"}
                   avatarUrl={user.user_metadata.avatar_url}
                   showControls
+                  showContent={false}
                 />
               ))}
             </div>
@@ -112,13 +113,13 @@ export default function MyPage() {
 
         <TabsContent value="public">
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(3)].map((_, i) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {[...Array(8)].map((_, i) => (
                 <div key={i} className="h-64 animate-pulse rounded-lg bg-muted"></div>
               ))}
             </div>
           ) : posts.filter(post => post.visibility === "public").length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {posts
                 .filter(post => post.visibility === "public")
                 .map(post => (
@@ -128,6 +129,7 @@ export default function MyPage() {
                     username={user.user_metadata.username || "ユーザー"}
                     avatarUrl={user.user_metadata.avatar_url}
                     showControls
+                    showContent={false}
                   />
                 ))}
             </div>
@@ -143,13 +145,13 @@ export default function MyPage() {
 
         <TabsContent value="private">
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(3)].map((_, i) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {[...Array(8)].map((_, i) => (
                 <div key={i} className="h-64 animate-pulse rounded-lg bg-muted"></div>
               ))}
             </div>
           ) : posts.filter(post => post.visibility === "private").length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {posts
                 .filter(post => post.visibility === "private")
                 .map(post => (
@@ -159,6 +161,7 @@ export default function MyPage() {
                     username={user.user_metadata.username || "ユーザー"}
                     avatarUrl={user.user_metadata.avatar_url}
                     showControls
+                    showContent={false}
                   />
                 ))}
             </div>

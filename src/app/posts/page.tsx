@@ -62,30 +62,23 @@ export default function PostsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold">みんなの投稿</h1>
-      <div className="flex justify-between items-center mb-8">
-        <Button asChild className="bg-gradient-to-r from-pink-500 to-purple-600">
-          <Link href="/posts/new" className="flex items-center gap-2">
-            <PlusCircle className="h-4 w-4" />
-            新規投稿
-          </Link>
-        </Button>
-      </div>
+      <h1 className="text-3xl font-bold mb-8">みんなの投稿</h1>
 
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[...Array(6)].map((_, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {[...Array(8)].map((_, i) => (
             <div key={i} className="h-64 animate-pulse rounded-lg bg-muted"></div>
           ))}
         </div>
       ) : posts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {posts.map(post => (
             <PostCard
               key={post.id}
               post={post}
               username={users[post.user_id]?.username || "ユーザー"}
               avatarUrl={users[post.user_id]?.avatar_url}
+              showContent={false}
             />
           ))}
         </div>
