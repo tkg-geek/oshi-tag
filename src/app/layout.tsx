@@ -22,6 +22,9 @@ const baseUrlWithProtocol = baseUrl.startsWith('http') ? baseUrl : `https://${ba
 export const metadata: Metadata = {
   title: "推しTag - 推し活を記録・共有・印刷",
   description: "NFCタグと印刷・OGP技術を活用した推し活支援サービス",
+  icons: {
+    icon: '/favicon.ico',
+  },
   metadataBase: new URL(baseUrlWithProtocol),
   openGraph: {
     title: "推しTag - 推し活を記録・共有・印刷",

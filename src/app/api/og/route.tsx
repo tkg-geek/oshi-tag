@@ -79,9 +79,9 @@ export async function GET(request: NextRequest) {
         },
       }
     )
-  } catch (e: any) {
-    console.error(`OG画像生成エラー: ${e.message}`)
-    return new Response(`OG画像生成に失敗しました: ${e.message}`, {
+  } catch (error: unknown) {
+    console.error(`OG画像生成エラー: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    return new Response(`OG画像生成に失敗しました: ${error instanceof Error ? error.message : 'Unknown error'}`, {
       status: 500,
     })
   }
